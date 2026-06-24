@@ -16,6 +16,7 @@ function DashboardPage() {
 
     // Build the auth header — this is sent with every request to the backend.
     // The backend's requireAuth middleware reads this and verifies the token.
+    const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
     const authHeader = () => ({
         headers: { Authorization: `Bearer ${localStorage.getItem('acre_token')}` }
     });
@@ -24,7 +25,7 @@ function DashboardPage() {
         setLoading(true);
         try {
             // Note: authHeader() is now passed as the 2nd argument to axios.get
-            const response = await axios.get('http://localhost:8000/api/incident', authHeader());
+            const response = await axios.get(`${API}/api/incident`, authHeader());
             setIncident(response.data);
             setError('');
         } catch (err) {
@@ -41,7 +42,7 @@ function DashboardPage() {
     const resolveIncident = async () => {
         setResolving(true);
         try {
-            await axios.post('http://localhost:8000/api/resolve', {}, authHeader());
+            await axios.post(`${API}/api/resolve`, {}, authHeader());
             await fetchStatus();
         } catch (err) {
             if (err.response?.status === 401) handleLogout();

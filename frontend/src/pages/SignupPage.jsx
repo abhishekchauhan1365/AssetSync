@@ -28,7 +28,8 @@ function SignupPage() {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:8000/api/auth/signup', { name, email, password });
+            const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await axios.post(`${API}/api/auth/signup`, { name, email, password });
 
             // After signup, auto-login: save token and redirect to dashboard
             localStorage.setItem('acre_token', res.data.token);

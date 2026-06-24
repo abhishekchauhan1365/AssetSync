@@ -18,7 +18,8 @@ function LoginPage() {
         setLoading(true);
 
         try {
-            const res = await axios.post('http://localhost:8000/api/auth/login', { email, password });
+            const API = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+        const res = await axios.post(`${API}/api/auth/login`, { email, password });
 
             // Store the token in localStorage so we can send it with future requests.
             // Also store user info so we can display the name in the dashboard.

@@ -1,11 +1,12 @@
 {
   "name": "backend",
   "version": "1.0.0",
-  "description": "",
+  "description": "A.C.R.E. Backend — Autonomous Crash Recovery Engine",
   "license": "ISC",
   "author": "",
   "type": "commonjs",
-  "main": "index.js",
+  "main": "server.js",
+  "engines": { "node": ">=20.0.0" },
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js",

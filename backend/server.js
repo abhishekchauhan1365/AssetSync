@@ -16,6 +16,13 @@ app.use(express.json());
 const PORT = process.env.PORT || 8000;
 const LOG_FILE_PATH = path.join(__dirname, 'mock_infra', 'error.log');
 
+// Auto-create the mock_infra directory and error.log if they don't exist.
+// On Railway (cloud), these files won't be present — we create them on first run.
+const LOG_DIR = path.join(__dirname, 'mock_infra');
+if (!fs.existsSync(LOG_DIR))  fs.mkdirSync(LOG_DIR, { recursive: true });
+if (!fs.existsSync(LOG_FILE_PATH)) fs.writeFileSync(LOG_FILE_PATH, '');
+
+
 // JWT secret loaded from .env — never hardcoded
 const JWT_SECRET = process.env.JWT_SECRET;
 
